@@ -11,7 +11,7 @@ function App() {
       <MainContent />
       <Footer />
       <WelcomeMessage />
-      <UserProfile name="Nahom" age="24" bio="Loves making money!"/>
+      <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
     </div>
   );
 }
