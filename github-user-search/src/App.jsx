@@ -1,11 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-// src/App.jsx
+// src/App.jsx (replace content)
 import React from "react";
 import Search from "./components/Search";
+import AdvancedSearch from "./components/AdvancedSearch";
 
 export default function App() {
   return (
@@ -17,10 +13,12 @@ export default function App() {
       </header>
 
       <main className="py-8">
-        <Search />
+        <div className="max-w-5xl mx-auto">
+          <Search />
+          <hr className="my-6" />
+          <AdvancedSearch />
+        </div>
       </main>
     </div>
   );
 }
-
-
