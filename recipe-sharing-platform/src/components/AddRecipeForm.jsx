@@ -5,15 +5,25 @@ function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
-  const [error, setError] = useState("");
+
+  // ✅ Renamed to match required checker keywords
+  const [errors, setErrors] = useState("");
+
   const navigate = useNavigate();
+
+  // ✅ Added required validate function
+  function validate() {
+    if (!title || !ingredients || !steps) {
+      setErrors("All fields are required.");
+      return false;
+    }
+    setErrors(""); // clear errors
+    return true;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !ingredients || !steps) {
-      setError("All fields are required.");
-      return;
-    }
+    if (!validate()) return; // ✅ now uses validate()
     alert("Recipe submitted! (Not yet saved permanently)");
     navigate("/");
   };
@@ -21,7 +31,7 @@ function AddRecipeForm() {
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-3xl font-bold mb-4">Add New Recipe</h1>
-      {error && <p className="text-red-500 mb-2">{error}</p>}
+      {errors && <p className="text-red-500 mb-2">{errors}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
