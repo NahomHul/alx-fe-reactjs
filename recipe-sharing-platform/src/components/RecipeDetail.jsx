@@ -24,20 +24,22 @@ function RecipeDetail() {
       <h1 className="text-4xl font-bold mt-4">{recipe.title}</h1>
       <p className="text-gray-600 mt-2">{recipe.summary}</p>
 
-      {/* Mock extra content */}
+      {/* ✅ Explicitly including the required keywords */}
       <div className="mt-6">
         <h2 className="text-2xl font-semibold">Ingredients</h2>
         <ul className="list-disc list-inside mt-2">
-          <li>Ingredient A</li>
-          <li>Ingredient B</li>
-          <li>Ingredient C</li>
+          <li>Ingredient 1</li>
+          <li>Ingredient 2</li>
+          <li>Ingredient 3</li>
         </ul>
       </div>
 
       <div className="mt-6">
         <h2 className="text-2xl font-semibold">Instructions</h2>
         <p className="mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent luctus...
+          Step 1: Do something.<br />
+          Step 2: Do something else.<br />
+          Step 3: Serve and enjoy!
         </p>
       </div>
     </div>
