@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // ✅ Required import added
 
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
@@ -12,16 +13,17 @@ function HomePage() {
 
   return (
     <div className="p-6">
-        <a
-            href="/add-recipe"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4 inline-block"
-            >
-            ➕ Add Recipe
-        </a>
-
       <h1 className="text-4xl font-bold text-center mb-8">🍽️ Recipe Sharing Platform</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {}
+      <Link
+        to="/add-recipe"
+        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4 inline-block"
+      >
+        ➕ Add Recipe
+      </Link>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
@@ -35,12 +37,14 @@ function HomePage() {
             <div className="p-4">
               <h2 className="text-xl font-semibold">{recipe.title}</h2>
               <p className="text-gray-600 mt-2">{recipe.summary}</p>
-              <a
-                href={`/recipe/${recipe.id}`}
+
+              {/* ✅ Replace <a href> with Link */}
+              <Link
+                to={`/recipe/${recipe.id}`}
                 className="text-blue-500 mt-4 inline-block hover:underline"
               >
                 View Recipe →
-              </a>
+              </Link>
             </div>
           </div>
         ))}
