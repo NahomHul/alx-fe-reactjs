@@ -1,40 +1,32 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Login from './pages/Login';
-import Post from './pages/Post';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function ProtectedRoute({ children, isAuth }) {
-  if (!isAuth) return <Navigate to="/login" replace />;
-  return children;
-}
-
-export default function App() {
-  const [isAuth, setIsAuth] = useState(false); // simple auth flag
-
+function App() {
   return (
-    <div style={{ padding: 20 }}>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/profile">Profile</Link> | <Link to="/posts/1">Post 1</Link>
-        <button onClick={() => setIsAuth(a => !a)} style={{ marginLeft: 10 }}>
-          {isAuth ? 'Logout' : 'Login'}
-        </button>
-      </nav>
-
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLogin={() => setIsAuth(true)} />} />
-
-        <Route path="/profile/*" element={
-          <ProtectedRoute isAuth={isAuth}>
-            <Profile />
-          </ProtectedRoute>
-        } />
-
-        {/* dynamic routing */}
-        <Route path="/posts/:postId" element={<Post />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/profile/*"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
+
+export default App;
