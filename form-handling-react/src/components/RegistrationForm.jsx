@@ -8,8 +8,10 @@ export default function RegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Literal checks so autograder finds them exactly
+    if (!username) {
+      setErrors("Username is required");
+      return;
+    }
     if (!email) {
       setErrors("Email is required");
       return;
@@ -19,14 +21,12 @@ export default function RegistrationForm() {
       return;
     }
     setErrors("");
-
-    alert("Registration successful for " + username);
+    alert("Registered successfully");
   };
 
   return (
     <form onSubmit={handleSubmit}>
       {errors && <p style={{ color: "red" }}>{errors}</p>}
-
       <div>
         <label>Username</label>
         <input
@@ -35,7 +35,6 @@ export default function RegistrationForm() {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-
       <div>
         <label>Email</label>
         <input
@@ -44,7 +43,6 @@ export default function RegistrationForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-
       <div>
         <label>Password</label>
         <input
@@ -54,7 +52,6 @@ export default function RegistrationForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-
       <button type="submit">Register</button>
     </form>
   );
