@@ -10,7 +10,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
         <Route path="/add-recipe" element={<AddRecipeForm />} />
-        <Route path="/add-recipe" element={<AddRecipe />} />
       </Routes>
     </Router>
   );
