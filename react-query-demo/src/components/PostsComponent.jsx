@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-// Define fetch function separately so the grader sees "fetchPosts"
 const fetchPosts = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
   if (!response.ok) {
@@ -11,8 +10,18 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  // Include "isError" explicitly in destructuring
-  const { data, isLoading, isError, error } = useQuery("posts", fetchPosts);
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery("posts", fetchPosts, {
+    cacheTime: 1000 * 60 * 5, // keep data in cache for 5 minutes
+    staleTime: 1000 * 30, // data considered fresh for 30 seconds
+    refetchOnWindowFocus: false, // don't refetch when window regains focus
+    keepPreviousData: true, // keep old data while fetching new
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -25,6 +34,7 @@ function PostsComponent() {
   return (
     <div>
       <h2>Posts</h2>
+      <button onClick={() => refetch()}>Refetch Posts</button>
       <ul>
         {data.slice(0, 5).map((post) => (
           <li key={post.id}>{post.title}</li>
