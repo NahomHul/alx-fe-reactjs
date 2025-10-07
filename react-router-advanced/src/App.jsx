@@ -6,6 +6,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import ProfileSettings from "./components/ProfileSettings";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BlogPost from "./components/BlogPost"; // ✅ include BlogPost
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+
+        {/* ✅ Dynamic route for blog posts */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+
         <Route
           path="/profile/*"
           element={
