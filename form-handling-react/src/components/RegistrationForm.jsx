@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 
 export default function RegistrationForm() {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  }
-
   function validate() {
-    if (!form.username.trim() || !form.email.trim() || !form.password.trim()) {
+    if (!username.trim() || !email.trim() || !password.trim()) {
       return 'All fields are required.';
     }
-    // basic email check
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) return 'Enter a valid email.';
-    if (form.password.length < 6) return 'Password must be at least 6 characters.';
+    if (!/^\S+@\S+\.\S+$/.test(email)) return 'Enter a valid email.';
+    if (password.length < 6) return 'Password must be at least 6 characters.';
     return '';
   }
 
@@ -27,16 +23,18 @@ export default function RegistrationForm() {
       return;
     }
     setError('');
-    // simulate API call
+
     try {
       const res = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ username, email, password }),
       });
       const data = await res.json();
       alert('User registered (mock): ' + JSON.stringify(data));
-      setForm({ username: '', email: '', password: '' });
+      setUsername('');
+      setEmail('');
+      setPassword('');
     } catch (err) {
       setError('Submission failed.');
     }
@@ -45,18 +43,35 @@ export default function RegistrationForm() {
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 420 }}>
       {error && <div style={{ color: 'red' }}>{error}</div>}
+
       <div>
         <label>Username</label><br />
-        <input name="username" value={form.username} onChange={handleChange} />
+        <input
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
       </div>
+
       <div>
         <label>Email</label><br />
-        <input name="email" value={form.email} onChange={handleChange} />
+        <input
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
+
       <div>
         <label>Password</label><br />
-        <input name="password" type="password" value={form.password} onChange={handleChange} />
+        <input
+          name="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
+
       <button type="submit">Register</button>
     </form>
   );
